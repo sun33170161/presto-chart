@@ -2,17 +2,18 @@ server:
   workers: 2
   node:
     environment: production
-    dataDir: /presto/etc/data
+    dataDir: /data/trino
   log:
     presto:
       level: INFO
   config:
-    path: /etc/presto
+    path: /etc/trino
     http:
       port: 8080
     query:
       maxMemory: "4GB"
       maxMemoryPerNode: "1GB"
+      maxTotalMemoryPerNode: "2GB"
   jvm:
     maxHeapSize: "8G"
     gcMethod:
@@ -24,10 +25,9 @@ server:
       connector.name=localfile
       presto-logs.http-request-log.location=/presto/etc/data/var/log
       presto-logs.http-request-log.pattern=*.log
-
 image:
-  repository: bivas/presto
-  tag: 0.196
+  repository: trinodb/trino
+  tag: 351
   pullPolicy: IfNotPresent
 
 service:
@@ -50,3 +50,4 @@ nodeSelector: {}
 tolerations: []
 
 affinity: {}
+
